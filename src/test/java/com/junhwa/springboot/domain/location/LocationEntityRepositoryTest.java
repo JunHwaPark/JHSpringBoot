@@ -1,4 +1,4 @@
-package com.junhwa.springboot.domain.posts;
+package com.junhwa.springboot.domain.location;
 
 import org.junit.After;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class LocationEntityRepositoryTest {
     }
 
     @Test
-    public void saveNLoadPost() {
+    public void saveNLoadLocation() {
         //given
         locationEntityRepository.save(LocationEntity.builder()
                 .latitude(latitude)

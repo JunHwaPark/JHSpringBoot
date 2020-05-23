@@ -1,5 +1,6 @@
 package com.junhwa.springboot.web;
 
+import com.google.gson.Gson;
 import com.junhwa.springboot.service.LocationEntityService;
 import com.junhwa.springboot.web.dto.LocationEntityResponseDto;
 import com.junhwa.springboot.web.dto.LocationEntitySaveRequestDto;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 public class LocationEntityApiController {
-
     private final LocationEntityService locationEntityService;
+    private final Gson gson;
 
     @PostMapping("/api/v1/location")
     public Long save(@RequestBody LocationEntitySaveRequestDto requestDto) {

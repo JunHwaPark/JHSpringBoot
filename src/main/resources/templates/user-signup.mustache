@@ -1,0 +1,26 @@
+{{>layout/header}}
+
+<h1>회원가입</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="id">아이디</label>
+                <input type="text" class="form-control" id="id" placeholder="ID">
+            </div>
+            <!--TODO: 2020.05.23 가입시 이메일 입력 및 검증-->
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" placeholder="20자 이하">
+            </div>
+            <div class="form-group">
+                <label for="password2">비밀번호 재입력</label>
+                <input type="password" class="form-control" id="password2" placeholder="비밀번호를 다시 입력하세요">
+            </div>
+        </form>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-signup">회원가입</button>
+    </div>
+</div>
+{{>layout/footer}}

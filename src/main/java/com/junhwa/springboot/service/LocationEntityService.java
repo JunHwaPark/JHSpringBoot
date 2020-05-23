@@ -1,7 +1,7 @@
 package com.junhwa.springboot.service;
 
-import com.junhwa.springboot.domain.posts.LocationEntity;
-import com.junhwa.springboot.domain.posts.LocationEntityRepository;
+import com.junhwa.springboot.domain.location.LocationEntity;
+import com.junhwa.springboot.domain.location.LocationEntityRepository;
 import com.junhwa.springboot.web.dto.LocationEntityListResponseDto;
 import com.junhwa.springboot.web.dto.LocationEntityResponseDto;
 import com.junhwa.springboot.web.dto.LocationEntitySaveRequestDto;
@@ -35,7 +35,7 @@ public class LocationEntityService {
     public LocationEntityResponseDto findById (Long id) {
         LocationEntity entity = locationEntityRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("없습니다. id=" + id));
 
-        return  new LocationEntityResponseDto(entity);
+        return new LocationEntityResponseDto(entity);
     }
 
     @Transactional(readOnly = true)

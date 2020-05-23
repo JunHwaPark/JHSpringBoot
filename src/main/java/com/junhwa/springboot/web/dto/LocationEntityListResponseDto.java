@@ -1,6 +1,6 @@
 package com.junhwa.springboot.web.dto;
 
-import com.junhwa.springboot.domain.posts.LocationEntity;
+import com.junhwa.springboot.domain.location.LocationEntity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
