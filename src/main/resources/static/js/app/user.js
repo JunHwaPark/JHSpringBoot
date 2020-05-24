@@ -18,7 +18,8 @@ var user = {
         }
         var data = {
             id: $('#id').val(),
-            password: $('#password').val()
+            password: $('#password').val(),
+            name: $('#name').val()
         };
 
         $.ajax({

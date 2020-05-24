@@ -1,7 +1,7 @@
 package com.junhwa.springboot.web;
 
 import com.junhwa.springboot.service.UserService;
-import com.junhwa.springboot.web.dto.MemberRegisterRequestDto;
+import com.junhwa.springboot.web.dto.UserRegisterRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +13,7 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/api/v1/user")
-    public Long registerUser(@RequestBody MemberRegisterRequestDto requestDto) {
+    public Long registerUser(@RequestBody UserRegisterRequestDto requestDto) {
         return userService.register(requestDto);
     }
 }

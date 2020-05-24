@@ -1,10 +1,9 @@
 package com.junhwa.springboot.service;
 
-import com.junhwa.springboot.config.auth.dto.SessionUser;
 import com.junhwa.springboot.domain.user.Role;
 import com.junhwa.springboot.domain.user.User;
 import com.junhwa.springboot.domain.user.UserRepository;
-import com.junhwa.springboot.web.dto.MemberRegisterRequestDto;
+import com.junhwa.springboot.web.dto.UserRegisterRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +21,9 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
 
     @Transactional
-    public Long register(MemberRegisterRequestDto requestDto) {
+    public Long register(UserRegisterRequestDto requestDto) {
         return userRepository.save(requestDto.toEntity()).getUser_id();
     }
 
@@ -37,11 +34,7 @@ public class UserService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
-        org.springframework.security.core.userdetails.User userDetails =
-                new org.springframework.security.core.userdetails.User(user.getId(), user.getPassword(), authorities);
 
-        //TODO: 20200524 임시방편! 로그인 실패시에도 세션에 추가되니 추후 처리 필요
-        httpSession.setAttribute("user", new SessionUser(user));
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(user.getId(), user.getPassword(), authorities);
     }
 }

@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class MemberRegisterRequestDto {
-    //private RegisterType type;
-    private String id, password;
+public class UserRegisterRequestDto {
+    private String id, password, name;
 
     @Builder
-    public MemberRegisterRequestDto(String id, String password) {
+    public UserRegisterRequestDto(String id, String password, String name) {
         this.id = id;
         this.password = password;
+        this.name = name;
     }
 
     public User toEntity() {
@@ -24,7 +24,7 @@ public class MemberRegisterRequestDto {
                 .type(RegisterType.SELF)
                 .id(id)
                 .password(password)
-                .name("test")
+                .name(name)
                 .role(Role.USER)
                 .build();
     }
