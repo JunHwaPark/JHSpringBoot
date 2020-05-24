@@ -23,10 +23,14 @@ public class LocationEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private double latitude, longitude;
 
+    @Column(nullable = false)
+    private Long writer;
+
     @Builder
-    public LocationEntity(double latitude, double longitude) {
+    public LocationEntity(double latitude, double longitude, Long writer) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.writer = writer;
     }
 
     public void update(double latitude, double longitude) {

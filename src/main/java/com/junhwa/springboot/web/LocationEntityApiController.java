@@ -1,6 +1,8 @@
 package com.junhwa.springboot.web;
 
 import com.google.gson.Gson;
+import com.junhwa.springboot.config.auth.LoginUser;
+import com.junhwa.springboot.config.auth.dto.SessionUser;
 import com.junhwa.springboot.service.LocationEntityService;
 import com.junhwa.springboot.web.dto.LocationEntityResponseDto;
 import com.junhwa.springboot.web.dto.LocationEntitySaveRequestDto;
@@ -15,8 +17,14 @@ public class LocationEntityApiController {
     private final Gson gson;
 
     @PostMapping("/api/v1/location")
-    public Long save(@RequestBody LocationEntitySaveRequestDto requestDto) {
-        return locationEntityService.save(requestDto);
+    public Long save(@RequestBody LocationEntitySaveRequestDto requestDto, @LoginUser SessionUser sessionUser) {
+        LocationEntitySaveRequestDto saveRequestDto
+                = LocationEntitySaveRequestDto.builder()
+                .latitude(requestDto.getLatitude())
+                .longitude(requestDto.getLongitude())
+                .writer(sessionUser.getUserId())
+                .build();
+        return locationEntityService.save(saveRequestDto);
     }
 
     @PutMapping("/api/v1/location/{id}")

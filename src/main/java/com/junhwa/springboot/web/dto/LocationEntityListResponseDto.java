@@ -7,12 +7,13 @@ import java.time.LocalDateTime;
 
 @Getter
 public class LocationEntityListResponseDto {
-    private Long id;
+    private Long id, writer;
     private double latitude, longitude;
     private LocalDateTime modifiedDate;
 
     public LocationEntityListResponseDto(LocationEntity entity) {
         this.id = entity.getId();
+        this.writer = entity.getWriter();
         this.latitude = entity.getLatitude();
         this.longitude = entity.getLongitude();
         this.modifiedDate = entity.getModifiedDate();

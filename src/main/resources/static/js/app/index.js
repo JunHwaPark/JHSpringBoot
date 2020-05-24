@@ -13,6 +13,7 @@ var main = {
     },
     save : function () {
         var data = {
+            writer: $('#writer').val(),
             longitude: $('#longitude').val(),
             latitude: $('#latitude').val()
         };

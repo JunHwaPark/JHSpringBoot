@@ -46,7 +46,8 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
             sessionUser = new SessionUser(user.get());
         } else {
             Optional<User> user = userRepository.findById(securityContext.getAuthentication().getName());   //비소셜 로그인의 경우 getName()으로 ID가 반환됨.
-            sessionUser = new SessionUser(user.get());
+            if (user.isPresent())
+                sessionUser = new SessionUser(user.get());
         }
         return sessionUser;
     }

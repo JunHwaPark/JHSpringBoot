@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
         User user = userWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
+        authorities.add(new SimpleGrantedAuthority(Role.USER.getKey()));
 
         return new org.springframework.security.core.userdetails.User(user.getId(), user.getPassword(), authorities);
     }

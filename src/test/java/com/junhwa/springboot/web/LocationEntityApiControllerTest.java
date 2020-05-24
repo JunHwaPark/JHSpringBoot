@@ -3,6 +3,10 @@ package com.junhwa.springboot.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.junhwa.springboot.domain.location.LocationEntity;
 import com.junhwa.springboot.domain.location.LocationEntityRepository;
+import com.junhwa.springboot.domain.user.RegisterType;
+import com.junhwa.springboot.domain.user.Role;
+import com.junhwa.springboot.domain.user.User;
+import com.junhwa.springboot.domain.user.UserRepository;
 import com.junhwa.springboot.web.dto.LocationEntitySaveRequestDto;
 import com.junhwa.springboot.web.dto.LocationEntityUpdateRequestDto;
 import org.junit.After;
@@ -13,13 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,12 +39,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //@WebMvcTest는 JPA기능이 작동하지 않음.
 public class LocationEntityApiControllerTest {
     private double latitude = 100d, longitude = 200d;
+    private Long writer = 1l;
 
     @LocalServerPort
     private int port;
 
     @Autowired
     private LocationEntityRepository locationEntityRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -55,18 +66,34 @@ public class LocationEntityApiControllerTest {
                 .build();
     }
 
+    @PostConstruct
+    public void setUser() {
+        userRepository.save(
+                User.builder()
+                        .id("testId")
+                        .password("testPassword")
+                        .name("testName")
+                        //.email("testEmail")
+                        .role(Role.USER)
+                        .type(RegisterType.SELF)
+                        .build());
+    }
+
     @After
     public void tearDown() throws Exception {
         locationEntityRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
+
     @Test
-    @WithMockUser(roles = "USER") //MockMvc 에서만 작동한다. 따라서 SpringBootTest인 이 클래스에서는 mvc 인스턴스를 생성해서 사용한다.
-    public void registerLocation() throws Exception {
+    @WithUserDetails(value = "testId")      //MockMvc 에서만 작동한다. 따라서 SpringBootTest인 이 클래스에서는 mvc 인스턴스를 생성해서 사용한다.
+    public void saveLocation() throws Exception {
         //given
         LocationEntitySaveRequestDto requestDto = LocationEntitySaveRequestDto.builder()
                 .latitude(latitude)
                 .longitude(longitude)
+                .writer(writer)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/location";
@@ -93,6 +120,7 @@ public class LocationEntityApiControllerTest {
         LocationEntity savedLocationEntity = locationEntityRepository.save(LocationEntity.builder()
                 .latitude(latitude)
                 .longitude(longitude)
+                .writer(writer)
                 .build());
 
         Long updateId = savedLocationEntity.getId();

@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class LocationEntityRepositoryTest {
     private double latitude = 100d, longitude = 200d;
+    private Long writer = 1l;
 
     @Autowired
     LocationEntityRepository locationEntityRepository;
@@ -31,6 +32,7 @@ public class LocationEntityRepositoryTest {
         locationEntityRepository.save(LocationEntity.builder()
                 .latitude(latitude)
                 .longitude(longitude)
+                .writer(writer)
                 .build());
 
         //when
@@ -49,6 +51,7 @@ public class LocationEntityRepositoryTest {
         locationEntityRepository.save(LocationEntity.builder()
                 .latitude(latitude)
                 .longitude(longitude)
+                .writer(writer)
                 .build());
 
         //when
