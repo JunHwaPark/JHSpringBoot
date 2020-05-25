@@ -1,10 +1,12 @@
 package com.junhwa.springboot.web;
 
 import com.junhwa.springboot.config.auth.SecurityConfig;
+import com.junhwa.springboot.domain.user.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -21,6 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
         })
 public class HelloControllerTest {
+    @MockBean
+    private UserRepository userRepository;
 
     @Autowired
     private MockMvc mvc;
