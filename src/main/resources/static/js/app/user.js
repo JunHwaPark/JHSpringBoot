@@ -34,7 +34,7 @@ var user = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    },
+    }/*,
     update : function () {
         var data = {
             longitude: $('#longitude').val(),
@@ -70,7 +70,7 @@ var user = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
+    }*/
 };
 
 user.init();

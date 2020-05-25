@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public Long register(UserRegisterRequestDto requestDto) {
-        return userRepository.save(requestDto.toEntity()).getUser_id();
+        return userRepository.save(requestDto.toEntity()).getUserId();
     }
 
     @Override
@@ -36,5 +36,17 @@ public class UserService implements UserDetailsService {
         authorities.add(new SimpleGrantedAuthority(Role.USER.getKey()));
 
         return new org.springframework.security.core.userdetails.User(user.getId(), user.getPassword(), authorities);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).get();
+    }
+
+    public User findById(String id) {
+        return userRepository.findById(id).get();
+    }
+
+    public User findByUserId(Long userId) {
+        return userRepository.findById(userId).get();
     }
 }

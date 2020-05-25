@@ -1,15 +1,12 @@
 package com.junhwa.springboot.domain.location;
 
 import com.junhwa.springboot.domain.BaseTimeEntity;
+import com.junhwa.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -23,11 +20,11 @@ public class LocationEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private double latitude, longitude;
 
-    @Column(nullable = false)
-    private Long writer;
+    @ManyToOne
+    private User writer;
 
     @Builder
-    public LocationEntity(double latitude, double longitude, Long writer) {
+    public LocationEntity(double latitude, double longitude, User writer) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.writer = writer;

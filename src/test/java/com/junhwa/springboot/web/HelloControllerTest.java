@@ -1,7 +1,7 @@
 package com.junhwa.springboot.web;
 
 import com.junhwa.springboot.config.auth.SecurityConfig;
-import com.junhwa.springboot.domain.user.UserRepository;
+import com.junhwa.springboot.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         })
 public class HelloControllerTest {
     @MockBean
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private MockMvc mvc;

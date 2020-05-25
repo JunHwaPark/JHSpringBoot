@@ -24,8 +24,8 @@
             <th>번호</th>
             <th>위도</th>
             <th>경도</th>
-            <th>작성자</th>
             <th>최종 수정일</th>
+            <th>작성자</th>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -34,8 +34,8 @@
             <td><a href="/location/update/{{id}}">{{id}}</a></td>
             <td>{{latitude}}</td>
             <td>{{longitude}}</td>
-            <td>{{writer}}</td>
             <td>{{modifiedDate}}</td>
+            <td>{{writer.name}}</td>
         </tr>
         {{/locationEntity}}
         </tbody>

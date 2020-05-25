@@ -20,7 +20,7 @@ import java.util.List;
 public class User extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;   //고유번호
+    private Long userId;   //고유번호
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -1,13 +1,15 @@
 package com.junhwa.springboot.web.dto;
 
 import com.junhwa.springboot.domain.location.LocationEntity;
+import com.junhwa.springboot.domain.user.User;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
 public class LocationEntityListResponseDto {
-    private Long id, writer;
+    private Long id;
+    private User writer;
     private double latitude, longitude;
     private LocalDateTime modifiedDate;
 

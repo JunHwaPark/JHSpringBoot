@@ -17,6 +17,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
+
         model.addAttribute("locationEntity", locationEntityService.findAllDesc());
         if (user != null) {
             System.out.println("Login : " + user.getName());
