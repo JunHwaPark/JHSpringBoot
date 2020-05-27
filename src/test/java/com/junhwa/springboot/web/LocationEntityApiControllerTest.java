@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //@WebMvcTest는 JPA기능이 작동하지 않음.
 public class LocationEntityApiControllerTest {
     private double latitude = 100d, longitude = 200d;
-    private Long writer = 1l;
+    private User writer;
 
     @LocalServerPort
     private int port;
@@ -69,7 +69,7 @@ public class LocationEntityApiControllerTest {
     @PostConstruct
     public void setUser() {
         userRepository.save(
-                User.builder()
+                writer = User.builder()
                         .id("testId")
                         .password("testPassword")
                         .name("testName")
@@ -93,7 +93,7 @@ public class LocationEntityApiControllerTest {
         LocationEntitySaveRequestDto requestDto = LocationEntitySaveRequestDto.builder()
                 .latitude(latitude)
                 .longitude(longitude)
-                .writer(writer)
+                //.writer(writer)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/location";

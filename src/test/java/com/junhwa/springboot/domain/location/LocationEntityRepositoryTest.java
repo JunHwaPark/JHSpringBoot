@@ -1,5 +1,9 @@
 package com.junhwa.springboot.domain.location;
 
+import com.junhwa.springboot.domain.user.RegisterType;
+import com.junhwa.springboot.domain.user.Role;
+import com.junhwa.springboot.domain.user.User;
+import com.junhwa.springboot.domain.user.UserRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,14 +21,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class LocationEntityRepositoryTest {
     private double latitude = 100d, longitude = 200d;
-    private Long writer = 1l;
+    private User writer;
 
     @Autowired
     LocationEntityRepository locationEntityRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @PostConstruct
+    public void setUser() {
+        userRepository.save(
+                writer = User.builder()
+                        .id("testId")
+                        .password("testPassword")
+                        .name("testName")
+                        //.email("testEmail")
+                        .role(Role.USER)
+                        .type(RegisterType.SELF)
+                        .build());
+    }
+
     @After
     public void cleanup() {
         locationEntityRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
