@@ -28,8 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers("/admin").hasRole(Role.ADMIN.name())   //관리자 페이지는 관리자만 허용
                 .antMatchers("/user/login", "/user/signup", "/api/v1/user").anonymous()        //회원가입은 익명 사용자만 허용
-                .antMatchers("/api/v1/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name()) //api사용은 유저 이상만 허용
-                .anyRequest().authenticated()
+                //TODO: 20200527 프로토타입 개발을 위한 임시방편! 추후 JWT적용 요망
+                //.antMatchers("/api/v1/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name()) //api사용은 유저 이상만 허용
+                .anyRequest().permitAll()
                 .and().formLogin().loginPage("/user/login").defaultSuccessUrl("/").permitAll()
                 .and().logout().logoutSuccessUrl("/")
                 .and().oauth2Login()

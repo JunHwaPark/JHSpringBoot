@@ -19,13 +19,14 @@ public class LocationEntityApiController {
 
     @PostMapping("/api/v1/location")
     public Long save(@RequestBody LocationEntitySaveRequestDto requestDto, @LoginUser SessionUser sessionUser) {
-        LocationEntitySaveRequestDto saveRequestDto
+        //TODO: 20200527 프로토타입 개발을 위한 임시방편! 추후 JWT적용 요망
+/*        LocationEntitySaveRequestDto saveRequestDto
                 = LocationEntitySaveRequestDto.builder()
                 .latitude(requestDto.getLatitude())
                 .longitude(requestDto.getLongitude())
                 .writer(userService.findByUserId(sessionUser.getUserId()))
-                .build();
-        return locationEntityService.save(saveRequestDto);
+                .build();*/
+        return locationEntityService.save(requestDto);
     }
 
     @PutMapping("/api/v1/location/{id}")

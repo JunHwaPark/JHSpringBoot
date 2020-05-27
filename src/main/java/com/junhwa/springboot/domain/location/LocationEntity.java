@@ -20,7 +20,7 @@ public class LocationEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private double latitude, longitude;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User writer;
 
     @Builder
