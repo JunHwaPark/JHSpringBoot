@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class LocationEntity extends BaseTimeEntity {
-
     @Id //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;

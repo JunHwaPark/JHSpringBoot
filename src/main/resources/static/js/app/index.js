@@ -70,3 +70,4 @@ var main = {
 };
 
 main.init();
+//TODO: 20200528 client-side jwt 코드 작성 필요 (토큰 저장, request header에 포함시키기)
