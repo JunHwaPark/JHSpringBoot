@@ -3,6 +3,7 @@ package com.junhwa.springboot.config.auth;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import java.util.Base64;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class JwtProvider {
     private String secretKey;
     private long validityInMilliseconds;
@@ -25,7 +27,8 @@ public class JwtProvider {
 
     public String createToken(String username) {
         //Add the username to the payload
-        Claims claims = Jwts.claims().setSubject(username);
+        Claims claims = Jwts.claims().setSubject(username);//.setId(userService.findById(username).getUserId().toString());
+
 
         //Build the Token
         Date now = new Date();

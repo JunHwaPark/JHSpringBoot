@@ -1,7 +1,7 @@
 package com.junhwa.springboot.domain.location;
 
 import com.junhwa.springboot.domain.BaseTimeEntity;
-import com.junhwa.springboot.domain.user.User;
+import com.junhwa.springboot.domain.trade.Trade;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,18 +19,23 @@ public class LocationEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private double latitude, longitude;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User writer;
+    @Column
+    private String address;
+
+    @ManyToOne(optional = false)
+    private Trade trade;
 
     @Builder
-    public LocationEntity(double latitude, double longitude, User writer) {
+    public LocationEntity(double latitude, double longitude, String address, Trade trade) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.writer = writer;
+        this.address = address;
+        this.trade = trade;
     }
 
-    public void update(double latitude, double longitude) {
+    public void update(double latitude, double longitude, String address) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.address = address;
     }
 }

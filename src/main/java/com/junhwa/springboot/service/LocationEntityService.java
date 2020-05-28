@@ -27,7 +27,7 @@ public class LocationEntityService {
     @Transactional
     public Long update(Long id, LocationEntityUpdateRequestDto requestDto) {
         LocationEntity locationEntity = locationEntityRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("없습니다. id=" + id));
-        locationEntity.update(requestDto.getLatitude(), requestDto.getLongitude());
+        locationEntity.update(requestDto.getLatitude(), requestDto.getLongitude(), requestDto.getAddress());
 
         return id;
     }

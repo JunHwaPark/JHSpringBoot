@@ -26,7 +26,7 @@ public class UserApiController {
         return userService.register(requestDto);
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public String signIn(@RequestBody @Valid SignInDto signInDto) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInDto.getUsername(), signInDto.getPassword()));

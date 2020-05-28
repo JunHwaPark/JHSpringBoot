@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationEntityUpdateRequestDto {
     private double latitude, longitude;
+    private String address;
 
     @Builder
-    public LocationEntityUpdateRequestDto(double latitude, double longitude) {
+    public LocationEntityUpdateRequestDto(double latitude, double longitude, String address) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.address = address;
     }
 }
