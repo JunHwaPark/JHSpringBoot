@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin").hasRole(Role.ADMIN.name())   //관리자 페이지는 관리자만 허용
-                .antMatchers("/login", "/user/signup", "/api/v1/user").permitAll()
+                .antMatchers("/user/login", "/login", "/user/signup", "/api/v1/user").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 /*                .and().logout().logoutSuccessUrl("/")

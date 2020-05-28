@@ -2,6 +2,7 @@ package com.junhwa.springboot.service;
 
 import com.junhwa.springboot.domain.location.LocationEntity;
 import com.junhwa.springboot.domain.location.LocationEntityRepository;
+import com.junhwa.springboot.domain.trade.TradeRepository;
 import com.junhwa.springboot.web.dto.LocationEntityListResponseDto;
 import com.junhwa.springboot.web.dto.LocationEntityResponseDto;
 import com.junhwa.springboot.web.dto.LocationEntitySaveRequestDto;
@@ -16,8 +17,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class LocationEntityService {
-
     private final LocationEntityRepository locationEntityRepository;
+    private final TradeRepository tradeRepository;
 
     @Transactional
     public Long save(LocationEntitySaveRequestDto requestDto) {
@@ -42,6 +43,13 @@ public class LocationEntityService {
     public List<LocationEntityListResponseDto> findAllDesc() {
         return locationEntityRepository.findAllDesc().stream()
                 .map(LocationEntityListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<LocationEntityResponseDto> findByTradeId(Long id) {
+        return locationEntityRepository.findByTrade(tradeRepository.findById(id).get()).stream()
+                .map(LocationEntityResponseDto::new)
                 .collect(Collectors.toList());
     }
 

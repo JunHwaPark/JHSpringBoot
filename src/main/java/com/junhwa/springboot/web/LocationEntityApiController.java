@@ -37,6 +37,11 @@ public class LocationEntityApiController {
         return gson.toJson(locationEntityService.findById(id));
     }
 
+    @GetMapping("/api/v1/trade/locations/{id}")
+    public String findByTradeId(@PathVariable Long id) {
+        return gson.toJson(locationEntityService.findByTradeId(id));
+    }
+
     @DeleteMapping("/api/v1/location/{id}")
     public Long delete(@PathVariable Long id) {
         locationEntityService.delete(id);

@@ -24,6 +24,8 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public Long register(UserRegisterRequestDto requestDto) {
+        if (userRepository.findById(requestDto.getId()).isPresent())
+            return -1L;
         return userRepository.save(requestDto.toEntity()).getUserId();
     }
 

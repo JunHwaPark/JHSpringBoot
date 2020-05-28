@@ -1,7 +1,5 @@
 package com.junhwa.springboot.web;
 
-import com.junhwa.springboot.config.auth.LoginUser;
-import com.junhwa.springboot.config.auth.dto.SessionUser;
 import com.junhwa.springboot.service.LocationEntityService;
 import com.junhwa.springboot.web.dto.LocationEntityResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -10,17 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
     private final LocationEntityService locationEntityService;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user) {
+    public String index(Model model, Principal principal) {
         model.addAttribute("locationEntity", locationEntityService.findAllDesc());
-        if (user != null) {
-            System.out.println("Login : " + user.getName());
-            model.addAttribute("userName", user.getName());
+        if (principal != null) {
+            System.out.println("Login : " + principal.getName());
+            model.addAttribute("userName", principal.getName());
         }
         return "index";
     }

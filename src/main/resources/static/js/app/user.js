@@ -4,8 +4,8 @@ var user = {
         $('#btn-signup').on('click', function() {
             _this.signup();
         })
-        $('#btn-update').on('click', function () {
-            _this.update();
+        $('#btn-login').on('click', function () {
+            _this.login();
         })
         $('#btn-delete').on('click', function () {
             _this.delete();
@@ -34,28 +34,26 @@ var user = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }/*,
-    update : function () {
+    },
+    login : function () {
         var data = {
-            longitude: $('#longitude').val(),
-            latitude: $('#latitude').val()
+            username: $('#username').val(),
+            password: $('#password').val()
         };
 
-        var id = $('#id').val();
-
         $.ajax({
-            type: 'PUT',
-            url: '/api/v1/location/'+id,
+            type: 'POST',
+            url: '/login',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert("수정되었습니다.");
+            //alert("수정되었습니다.");
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    },
+    }/*,
     delete : function () {
         var id = $('#id').val();
 

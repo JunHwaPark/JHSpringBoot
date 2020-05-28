@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 public class SignInDto {
-
     @NotNull
     private String username;
 

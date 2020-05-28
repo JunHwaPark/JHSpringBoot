@@ -2,7 +2,7 @@
 <h1>로그인</h1>
 <div class="col-md-12">
     <div class="col-md-4">
-        <form action="/user/login" method="post">
+        <form>
             <div class="form-group">
                 <label for="username">ID</label>
                 <input type="text" class="form-control" name="username" placeholder="아이디">
@@ -11,9 +11,9 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" name="password" placeholder="비밀번호">
             </div>
-            <a href="/" role="button" class="btn btn-secondary">취소</a>
-            <button type="submit" class="btn btn-primary">로그인</button>
         </form>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-login">로그인</button>
     </div>
 </div>
 {{>layout/footer}}
