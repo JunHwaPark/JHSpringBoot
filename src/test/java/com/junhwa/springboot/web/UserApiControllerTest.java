@@ -3,7 +3,9 @@ package com.junhwa.springboot.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.junhwa.springboot.domain.user.User;
 import com.junhwa.springboot.domain.user.UserRepository;
+import com.junhwa.springboot.web.dto.SignInDto;
 import com.junhwa.springboot.web.dto.UserRegisterRequestDto;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +49,12 @@ public class UserApiControllerTest {
                 .build();
     }
 
-    @Test
+    @After
+    public void tearDown() throws Exception {
+        userRepository.deleteAll();
+    }
+
+    //@Test
     public void registerUser() throws Exception{
         //given
         UserRegisterRequestDto userRegisterRequestDto = UserRegisterRequestDto.builder()
@@ -68,5 +75,27 @@ public class UserApiControllerTest {
         List<User> all = userRepository.findAll();
         assertThat(all.get(0).getId()).isEqualTo(id);
         assertThat(all.get(0).getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void getAccessToken() throws Exception {
+        //given
+        registerUser();
+        SignInDto signInDto = SignInDto.builder()
+                .username(id)
+                .password(password)
+                .build();
+
+        String url = "http://localhost:" + port + "/login";
+
+        //when
+        String token = mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(signInDto)))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        //then
+        assertThat(token.length()).isGreaterThan(0);
     }
 }

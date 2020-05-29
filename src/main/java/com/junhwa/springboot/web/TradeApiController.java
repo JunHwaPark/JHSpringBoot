@@ -17,7 +17,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class TradeController {
+public class TradeApiController {
     private final TradeService tradeService;
     private final UserService userService;
     private final Gson gson;

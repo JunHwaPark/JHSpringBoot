@@ -22,9 +22,8 @@ public class TradeSaveRequestDto {
 
     public Trade toEntity() {
         return Trade.builder()
-                .start(start)
-                .end(end)
                 .writer(writer)
+                .distance(Trade.getDistanceMeter(start, end))
                 .build();
     }
 }

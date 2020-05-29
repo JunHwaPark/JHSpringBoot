@@ -1,6 +1,5 @@
 package com.junhwa.springboot.domain.location;
 
-import com.junhwa.springboot.domain.BaseTimeEntity;
 import com.junhwa.springboot.domain.trade.Trade;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class LocationEntity extends BaseTimeEntity {
+public class LocationEntity {
     @Id //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
