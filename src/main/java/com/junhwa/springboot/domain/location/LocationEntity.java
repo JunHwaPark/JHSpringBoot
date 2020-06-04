@@ -22,6 +22,7 @@ public class LocationEntity {
     private String address;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "trade_id")
     private Trade trade;
 
     @Builder

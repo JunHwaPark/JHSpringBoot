@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -21,12 +22,17 @@ public class Trade extends BaseTimeEntity {
     private Double distance;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "writer")
     private User writer;
 
+    @OneToMany(mappedBy = "trade", cascade = CascadeType.ALL)
+    private List<LocationEntity> locationEntities;
+
     @Builder
-    public Trade(User writer, Double distance) {
+    public Trade(User writer, Double distance, List<LocationEntity> locationEntities) {
         this.writer = writer;
         this.distance = distance;
+        this.locationEntities = locationEntities;
     }
 
     public static double getDistanceMeter(LocationEntity entity1, LocationEntity entity2) {

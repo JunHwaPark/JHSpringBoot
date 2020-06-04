@@ -1,6 +1,7 @@
 package com.junhwa.springboot.domain.user;
 
 import com.junhwa.springboot.domain.BaseTimeEntity;
+import com.junhwa.springboot.domain.trade.Trade;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,9 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    private List<Trade> trades;// = new ArrayList<>();
 
     @Builder
     public User(String name, RegisterType type, String id, String password, String email, String picture, Role role) {

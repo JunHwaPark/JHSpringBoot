@@ -65,8 +65,8 @@ public class TradeApiControllerTest {
 
     @After
     public void tearDown() throws Exception {
-        locationEntityRepository.deleteAll();
-        tradeRepository.deleteAll();
+        //locationEntityRepository.deleteAll();
+        //tradeRepository.deleteAll();
         userRepository.deleteAll();
     }
 
