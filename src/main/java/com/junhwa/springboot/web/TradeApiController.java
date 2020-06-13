@@ -3,14 +3,14 @@ package com.junhwa.springboot.web;
 import com.google.gson.Gson;
 import com.junhwa.springboot.domain.user.User;
 import com.junhwa.springboot.service.TradeService;
+import com.junhwa.springboot.service.TransferRequestService;
 import com.junhwa.springboot.service.UserService;
 import com.junhwa.springboot.web.dto.TradeListResponseDto;
 import com.junhwa.springboot.web.dto.TradeSaveRequestDto;
+import com.junhwa.springboot.web.dto.TransferRequestDto;
+import com.junhwa.springboot.web.dto.TransferRequestSaveDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.List;
 public class TradeApiController {
     private final TradeService tradeService;
     private final UserService userService;
+    private final TransferRequestService transferRequestService;
     private final Gson gson;
 
     @PostMapping("/api/v1/trade")
@@ -32,6 +33,21 @@ public class TradeApiController {
                 .writer(writer)
                 .build();
         return tradeService.save(saveRequestDto);
+    }
+
+    //TODO: 20200612 Test code 작성 필요
+    @PostMapping("/api/v1/trade/request")
+    public Long saveRequest(@RequestBody TransferRequestSaveDto requestSaveDto, Principal principal) {
+        User deliverer = userService.findById(principal.getName());
+        return transferRequestService.save(requestSaveDto.getTradeId(), deliverer);
+    }
+
+    //TODO: 20200612 Test code 작성 필요
+    @GetMapping("/api/v1/trade/request/{id}")
+    public String loadTransferRequestsByTradeId(@PathVariable Long id) {
+        //TODO: 20200612 배달자 정보 클래스 따로 생성 필요.
+        List<TransferRequestDto> transferRequestDtoList = transferRequestService.findByTradeId(id);
+        return gson.toJson(transferRequestDtoList);
     }
 
     @GetMapping("/api/v1/trade")

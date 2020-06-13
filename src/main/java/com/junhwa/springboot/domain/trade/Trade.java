@@ -2,6 +2,7 @@ package com.junhwa.springboot.domain.trade;
 
 import com.junhwa.springboot.domain.BaseTimeEntity;
 import com.junhwa.springboot.domain.location.LocationEntity;
+import com.junhwa.springboot.domain.trade.transferrequest.TransferRequest;
 import com.junhwa.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,11 +29,19 @@ public class Trade extends BaseTimeEntity {
     @OneToMany(mappedBy = "trade", cascade = CascadeType.ALL)
     private List<LocationEntity> locationEntities;
 
+    @OneToMany(mappedBy = "trade", cascade = CascadeType.ALL)
+    private List<TransferRequest> transferRequests;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
+
     @Builder
     public Trade(User writer, Double distance, List<LocationEntity> locationEntities) {
         this.writer = writer;
         this.distance = distance;
         this.locationEntities = locationEntities;
+        this.status = Status.DISPLAY;
     }
 
     public static double getDistanceMeter(LocationEntity entity1, LocationEntity entity2) {
