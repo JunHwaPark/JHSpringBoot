@@ -32,6 +32,10 @@ public class Trade extends BaseTimeEntity {
     @OneToMany(mappedBy = "trade", cascade = CascadeType.ALL)
     private List<TransferRequest> transferRequests;
 
+    @OneToOne
+    @JoinColumn(name = "transfer")
+    private TransferRequest transferRequest;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
@@ -50,5 +54,10 @@ public class Trade extends BaseTimeEntity {
                 + Math.cos(Math.toRadians(entity1.getLatitude())) * Math.cos(Math.toRadians(entity2.getLatitude())) * Math.cos(Math.toRadians(theta));
 
         return Math.toDegrees(Math.acos(dist)) * 60 * 1.1515 * 1609.344;
+    }
+
+    public void acceptTransferRequest(TransferRequest transferRequest) {
+        this.status = Status.TRANSFER_BUY;
+        this.transferRequest = transferRequest;
     }
 }

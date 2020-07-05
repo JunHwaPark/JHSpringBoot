@@ -24,6 +24,10 @@ public class TransferRequest {
     @JoinColumn(name = "trade_id")
     private Trade trade;
 
+    @OneToOne
+    @JoinColumn(name = "accepted")
+    private Trade acceptedTrade;
+
     @Builder
     public TransferRequest(User deliverer, Trade trade) {
         this.deliverer = deliverer;

@@ -26,6 +26,7 @@ public class TransferRequestService {
 
     @Transactional
     public Long save(Long tradeId, User deliverer) {
+        //TODO: 20200705 동일 거래에 동일인이 요청시 막는 코드 작성 필요
         return transferRequestRepository.save(TransferRequest.builder()
                 .trade(tradeRepository.findById(tradeId).get())
                 .deliverer(deliverer)

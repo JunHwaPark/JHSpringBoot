@@ -5,10 +5,7 @@ import com.junhwa.springboot.domain.user.User;
 import com.junhwa.springboot.service.TradeService;
 import com.junhwa.springboot.service.TransferRequestService;
 import com.junhwa.springboot.service.UserService;
-import com.junhwa.springboot.web.dto.TradeListResponseDto;
-import com.junhwa.springboot.web.dto.TradeSaveRequestDto;
-import com.junhwa.springboot.web.dto.TransferRequestDto;
-import com.junhwa.springboot.web.dto.TransferRequestSaveDto;
+import com.junhwa.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +51,11 @@ public class TradeApiController {
     public String loadAllTrades() {
         List<TradeListResponseDto> tradeListResponseDtoList =  tradeService.findAllDesc();
         return gson.toJson(tradeListResponseDtoList);
+    }
+
+    @PutMapping("/api/v1/trade/request/{id}")
+    public void acceptTransferRequest(@PathVariable Long id, @RequestBody TransferAcceptRequestDto transferAcceptRequestDto) {
+        Long transferId = transferAcceptRequestDto.getTransferRequestId();
+        tradeService.acceptTransferRequest(id, transferId);
     }
 }
