@@ -23,7 +23,7 @@ repositories {
     mavenCentral()
     jcenter()
 }
-
+apply plugin: 'pmd'
 pmd {
     ignoreFailures = true
     reportsDir = file("${buildDir}/pmd-output")
