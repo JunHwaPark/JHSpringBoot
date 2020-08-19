@@ -24,6 +24,19 @@ repositories {
     jcenter()
 }
 
+pmd {
+    ignoreFailures = true
+    reportsDir = file("${buildDir}/pmd-output")
+}
+
+pmdMain {
+    reports {
+        xml.destination = file("${pmd.reportsDir}/pmd-report.xml")
+        xml.enabled = true
+    }
+}
+
+
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.projectlombok:lombok')
